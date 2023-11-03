@@ -1,0 +1,1 @@
+org.springframework.test.context.ContextCustomizerFactory = com.thg.procurement.questionnaire.service.config.TestContainersSpringContextCustomizerFactory

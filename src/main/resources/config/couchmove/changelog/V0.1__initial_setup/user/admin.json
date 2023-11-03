@@ -1,0 +1,12 @@
+{
+  "login": "admin",
+  "firstName": "Administrator",
+  "lastName": "Administrator",
+  "email": "admin@localhost",
+  "activated": true,
+  "langKey": "en",
+  "createdBy": "system",
+  "lastModifiedBy": "system",
+  "authorities": ["ROLE_USER", "ROLE_ADMIN"],
+  "type": "user"
+}

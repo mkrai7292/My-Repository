@@ -1,0 +1,12 @@
+{
+  "login": "user",
+  "firstName": "User",
+  "lastName": "User",
+  "email": "user@localhost",
+  "activated": true,
+  "langKey": "en",
+  "createdBy": "system",
+  "lastModifiedBy": "system",
+  "authorities": ["ROLE_USER"],
+  "type": "user"
+}
