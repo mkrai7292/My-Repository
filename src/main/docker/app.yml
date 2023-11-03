@@ -1,31 +1,37 @@
 # This configuration is intended for development purpose, it's **your** responsibility to harden it for production
-version: '3.8'
+name: questionnaireservice
 services:
-  questionnaireservice-app:
+  app:
     image: questionnaireservice
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
       - SPRING_PROFILES_ACTIVE=prod,api-docs
-      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
-      - SPRING_COUCHBASE_CONNECTION_STRING=questionnaireservice-couchbase
+      - MANAGEMENT_PROMETHEUS_METRICS_EXPORT_ENABLED=true
+      - SPRING_COUCHBASE_CONNECTION_STRING=couchbase
       - JHIPSTER_DATABASE_COUCHBASE_BUCKET_NAME=QuestionnaireService
-      - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=http://keycloak:9080/realms/jhipster
-      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=internal
-      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=internal
-      - JHIPSTER_SLEEP=60 # gives time for other services to boot before the application
-  questionnaireservice-couchbase:
-    build:
-      context: .
-      dockerfile: couchbase/Couchbase.Dockerfile
-    # If you want to expose these ports outside your dev PC,
-    # remove the "127.0.0.1:" prefix
+      - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=http://keycloak:9080/realms/thg-questionnaire-service
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=questionnaire-service
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=${SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET}
+      - JHIPSTER_SLEEP=20
     ports:
-      - 127.0.0.1:8091:8091
-      - 127.0.0.1:8092:8092
-      - 127.0.0.1:8093:8093
-      - 127.0.0.1:8094:8094
-      - 127.0.0.1:11210:11210
-    environment:
-      - BUCKET=QuestionnaireService
-    # volumes:
-    #   - ~/volumes/jhipster/questionnaireservice/couchbase/:/opt/couchbase/var
+      - 127.0.0.1:8071:8071
+    healthcheck:
+      test:
+        - CMD
+        - curl
+        - -f
+        - http://localhost:8071/management/health
+      interval: 5s
+      timeout: 5s
+      retries: 40
+    depends_on:
+      couchbase:
+        condition: service_healthy
+  couchbase:
+    extends:
+      file: ./couchbase.yml
+      service: couchbase
+  keycloak:
+    extends:
+      file: ./keycloak.yml
+      service: keycloak

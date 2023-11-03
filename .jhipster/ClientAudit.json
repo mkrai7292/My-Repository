@@ -1,0 +1,40 @@
+{
+  "applications": "*",
+  "changelogDate": "20231103050057",
+  "clientRootFolder": "QuestionnaireService",
+  "databaseType": "couchbase",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "client_audit",
+  "fields": [
+    {
+      "fieldName": "clientId",
+      "fieldType": "UUID",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "actionBy",
+      "fieldType": "UUID",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "actionType",
+      "fieldType": "ActionType",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "CREATED,UPDATED,DELETED"
+    },
+    {
+      "fieldName": "actionAt",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "QuestionnaireService",
+  "name": "ClientAudit",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "no"
+}

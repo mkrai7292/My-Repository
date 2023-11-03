@@ -28,9 +28,9 @@ version = "0.0.1-SNAPSHOT"
 
 description = ""
 
-sourceCompatibility=11
-targetCompatibility=11
-assert System.properties["java.specification.version"] == "11" || "12" || "13" || "14" || "15" || "16" || "17" || "18"
+sourceCompatibility=17
+targetCompatibility=17
+assert System.properties["java.specification.version"] == "17" || "18"
 
 apply from: "gradle/docker.gradle"
 apply from: "gradle/sonar.gradle"
@@ -259,3 +259,9 @@ wrapper {
 
 compileJava.dependsOn processResources
 processResources.dependsOn bootBuildInfo
+
+/*jib {
+    from {
+        image = 'openjdk:17-jre-slim'
+    }
+}*/

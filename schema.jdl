@@ -1,0 +1,61 @@
+
+entity Questionnaire {
+	name String unique required
+    description String required
+    isDeleted Boolean required
+    createdBy UUID required
+    createdAt ZonedDateTime required
+    updatedBy UUID required
+    updatedAt ZonedDateTime required
+   	schema String required
+    client UUID required
+}
+
+entity Answer {
+	questionnaireId UUID required
+	isDeleted Boolean required
+    createdBy UUID required
+    createdAt ZonedDateTime required
+    updatedBy UUID required
+    updatedAt ZonedDateTime required
+    data String required
+    client UUID required
+}
+
+enum ActionType {
+	CREATED, UPDATED, DELETED
+}
+
+entity QuestionnaireAudit {
+	questionnaireId UUID required
+    actionBy UUID required
+    actionType ActionType required
+    actionAt ZonedDateTime required
+    client UUID required
+}
+
+entity AnswerAudit {
+	answerId UUID required
+    actionBy UUID required
+    actionType ActionType required
+    actionAt ZonedDateTime required
+    client UUID required
+}
+
+entity Client {
+	name String required
+    description String required
+    isDeleted Boolean required
+    createdBy UUID required
+    createdAt ZonedDateTime required
+    updatedBy UUID required
+    updatedAt ZonedDateTime required
+}
+
+entity ClientAudit {
+	clientId UUID required
+    actionBy UUID required
+    actionType ActionType required
+    actionAt ZonedDateTime required
+}
+

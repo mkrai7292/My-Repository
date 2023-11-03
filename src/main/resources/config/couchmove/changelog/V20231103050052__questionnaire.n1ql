@@ -1,0 +1,5 @@
+CREATE COLLECTION `${bucket}`.`${scope}`.`questionnaire`;
+
+CREATE INDEX `questionnaire_type` ON `${bucket}`.`${scope}`.`questionnaire`(type)
+    WHERE `type` = "questionnaire"
+    WITH { "defer_build" : true };
